@@ -1,0 +1,5 @@
+ports:CRLF
+    - port: 8080CRLF
+tasks:CRLF
+    - init: mysql < DDL.sqlCRLF
+image: gitpod/workspace-mysql
