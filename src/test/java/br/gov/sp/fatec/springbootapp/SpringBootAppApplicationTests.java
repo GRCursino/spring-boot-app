@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.annotation.Rollback;
 
 import br.gov.sp.fatec.springbootapp.repository.UsuarioRepository;
+import br.gov.sp.fatec.springbootapp.repository.AutorizacaoRepository;
 import br.gov.sp.fatec.springbootapp.entity.Usuario;
+import br.gov.sp.fatec.springbootapp.entity.Autorizacao;
 
 @SpringBootTest
 @Transactional
@@ -18,7 +20,7 @@ class SpringBootAppApplicationTests {
     @Autowired
     private UsuarioRepository usuarioRepo;
 
-    @Test
+   @Test
     void contextLoads() {
     }
 
@@ -26,20 +28,25 @@ class SpringBootAppApplicationTests {
     void testeInsercao() {
 
         Usuario usuario = new Usuario();
-        usuario.setNome("Guilherme");
+        usuario.setNome("Usuario");
         usuario.setSenha("senha");
         usuarioRepo.save(usuario);
         assertNotNull(usuario.getId());
 
     }
-/*
+
+    
     @Test
-    void testeAutorizacao() {
+    void testeUsuario() {
 
         Usuario usuario = usuarioRepo.findById(1L).get();
         assertEquals("ROLE_ADMIN", usuario.getAutorizacoes().iterator().next().getNome());
        
 
-    }*/
+    }
+
+
+    }
+
 
 }

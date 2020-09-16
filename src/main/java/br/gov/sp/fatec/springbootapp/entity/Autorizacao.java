@@ -1,10 +1,14 @@
 package br.gov.sp.fatec.springbootapp.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +24,16 @@ public class Autorizacao {
     @Column(name ="aut_nome")
     private String nome;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "autorizacoes")
+    private Set<Usuario> usuarios;
+
+    public Set<Usuario> getUsuarios(){
+        return this.usuarios;
+    }
+
+    public void setUsuario(Set<Usuario> usuarios){
+        this.usuarios = usuarios;
+    }
 
     public Long getId() {
         return this.id;
