@@ -28,3 +28,7 @@ create table uau_usuario_autorizacao (
   foreign key aut_usuario_fk (usr_id) references usr_usuario (usr_id),
   foreign key aut_autorizacao_fk (aut_id) references aut_autorizacao (aut_id)
 );
+
+insert into usr_usuario (usr_nome, usr_senha) values ('Guilherme', 'senha');
+insert into aut_autorizacao (aut_nome) values ('ROLE_ADMIN');
+insert into uau_usuario_autorizacao (usr_id, aut_id) values (1, 1);

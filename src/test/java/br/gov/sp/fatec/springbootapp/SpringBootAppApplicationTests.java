@@ -2,6 +2,9 @@ package br.gov.sp.fatec.springbootapp;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashSet;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +23,9 @@ class SpringBootAppApplicationTests {
     @Autowired
     private UsuarioRepository usuarioRepo;
 
+    @Autowired
+    private AutorizacaoRepository autRepo;
+
    @Test
     void contextLoads() {
     }
@@ -30,8 +36,13 @@ class SpringBootAppApplicationTests {
         Usuario usuario = new Usuario();
         usuario.setNome("Usuario");
         usuario.setSenha("senha");
+        usuario.setAutorizacoes(new HashSet<Autorizacao>());
+        Autorizacao aut = new Autorizacao();
+        aut.setNome("ROLE_USUARIO");
+        autRepo.save(aut);
+        usuario.getAutorizacoes().add(aut);
         usuarioRepo.save(usuario);
-        assertNotNull(usuario.getId());
+        assertNotNull(usuario.getAutorizacoes().iterator().next().getId());
 
     }
 
@@ -39,8 +50,17 @@ class SpringBootAppApplicationTests {
     @Test
     void testeUsuario() {
 
-        Usuario usuario = usuarioRepo.findById(1L).get();
+        Usuario usuario = usuarioRepo.findById(19L).get();
         assertEquals("ROLE_ADMIN", usuario.getAutorizacoes().iterator().next().getNome());
+       
+
+    }
+
+    @Test
+    void testeAutorizacao() {
+
+        Autorizacao aut = autRepo.findById(1L).get();
+        assertEquals("Guilherme", aut.getUsuarios().iterator().next().getNome());
        
 
     }
@@ -49,4 +69,4 @@ class SpringBootAppApplicationTests {
     }
 
 
-}
+
