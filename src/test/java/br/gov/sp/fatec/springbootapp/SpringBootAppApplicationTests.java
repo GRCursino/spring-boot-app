@@ -16,8 +16,8 @@ import br.gov.sp.fatec.springbootapp.entity.Usuario;
 import br.gov.sp.fatec.springbootapp.entity.Autorizacao;
 
 @SpringBootTest
-@Transactional
-@Rollback
+//@Transactional
+//@Rollback
 class SpringBootAppApplicationTests {
 
     @Autowired
@@ -46,11 +46,27 @@ class SpringBootAppApplicationTests {
 
     }
 
+    @Test
+    void testeInsercaoAutorizacao() {
+
+        Usuario usuario = new Usuario();
+        usuario.setNome("Usuario2");
+        usuario.setSenha("senha");
+        usuarioRepo.save(usuario);
+        
+        Autorizacao aut = new Autorizacao();
+        aut.setNome("ROLE_USUARIO2");
+        aut.setUsuario(new HashSet<Usuario>());
+        aut.getUsuarios().add(usuario);
+        autRepo.save(aut);
+        assertNotNull(aut.getUsuarios().iterator().next().getId());
+
+    }
     
     @Test
     void testeUsuario() {
 
-        Usuario usuario = usuarioRepo.findById(19L).get();
+        Usuario usuario = usuarioRepo.findById(1L).get();
         assertEquals("ROLE_ADMIN", usuario.getAutorizacoes().iterator().next().getNome());
        
 
@@ -66,7 +82,7 @@ class SpringBootAppApplicationTests {
     }
 
 
-    }
+}
 
 
 
