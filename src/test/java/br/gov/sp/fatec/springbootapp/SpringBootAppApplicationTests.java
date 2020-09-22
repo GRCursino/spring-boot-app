@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ import br.gov.sp.fatec.springbootapp.entity.Usuario;
 import br.gov.sp.fatec.springbootapp.entity.Autorizacao;
 
 @SpringBootTest
-//@Transactional
-//@Rollback
+@Transactional
+@Rollback
 class SpringBootAppApplicationTests {
 
     @Autowired
@@ -71,6 +72,57 @@ class SpringBootAppApplicationTests {
        
 
     }
+
+    @Test
+    void testeUsuarioNomeContains() {
+
+        List<Usuario> usuarios = usuarioRepo.findByNomeContainsIgnoreCase("G");
+        assertFalse(usuarios.isEmpty());
+       
+    }
+
+    @Test
+    void testeBuscaUsuario() {
+
+        Usuario usuario = usuarioRepo.findByNome("Guilherme");
+       assertNotNull(usuario);
+    }
+
+    // @Test
+    // void testeBuscaUsuarioNomeQuery() {
+
+    //     Usuario usuario = usuarioRepo.buscaUsuarioPorNome("Guilherme");
+    //    assertNotNull(usuario);
+    // }
+
+
+    @Test
+    void testeBuscaUsuarioNomeSenha() {
+
+        Usuario usuario = usuarioRepo.findByNomeAndSenha("Guilherme","senha");
+       assertNotNull(usuario);
+    }
+
+    // @Test
+    // void testeBuscaUsuarioNomeSenhaQuery() {
+
+    //     Usuario usuario = usuarioRepo.buscaUsuarioPorNomeESenha("Guilherme","senha");
+    //    assertNotNull(usuario);
+    // }
+
+    @Test
+    void testeBuscaUsuarioNomeAutorizacao() {
+
+       List<Usuario> usuarios = usuarioRepo.findByAutorizacoesNome("ROLE_ADMIN");
+       assertFalse(usuarios.isEmpty());
+    }
+
+    // @Test
+    // void testeBuscaUsuarioNomeAutorizacaoQuery() {
+
+    //    List<Usuario> usuarios = usuarioRepo.buscaPorNomeAutorizacao("ROLE_ADMIN");
+    //    assertFalse(usuarios.isEmpty());
+    // }
 
     @Test
     void testeAutorizacao() {
