@@ -23,7 +23,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
     public List<Usuario> findByAutorizacoesNome(String autorizacao);
 
-    @Query("select u.from Usuario u inner join u.autorizacoes a where a.nome = ?1")
-    public List<Usuario> buscaPorNomeAutorizacao(String nome);
+    @Query("select u from Usuario u inner join u.autorizacoes a where a.nome = ?1")
+    public List<Usuario> buscaPorNomeAutorizacao(String autorizacao);
 
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.annotation.Rollback;
 
 import br.gov.sp.fatec.springbootapp.repository.UsuarioRepository;
+import br.gov.sp.fatec.springbootapp.service.SegurancaService;
 import br.gov.sp.fatec.springbootapp.repository.AutorizacaoRepository;
 import br.gov.sp.fatec.springbootapp.entity.Usuario;
 import br.gov.sp.fatec.springbootapp.entity.Autorizacao;
@@ -26,6 +27,9 @@ class SpringBootAppApplicationTests {
 
     @Autowired
     private AutorizacaoRepository autRepo;
+
+    @Autowired
+    private SegurancaService segService;
 
    @Test
     void contextLoads() {
@@ -88,27 +92,27 @@ class SpringBootAppApplicationTests {
        assertNotNull(usuario);
     }
 
-    // @Test
-    // void testeBuscaUsuarioNomeQuery() {
+    @Test
+    void testeBuscaUsuarioNomeQuery() {
 
-    //     Usuario usuario = usuarioRepo.buscaUsuarioPorNome("Guilherme");
-    //    assertNotNull(usuario);
-    // }
+       Usuario usuario = usuarioRepo.buscaUsuarioPorNome("Guilherme");
+       assertNotNull(usuario);
+    }
 
 
     @Test
     void testeBuscaUsuarioNomeSenha() {
 
         Usuario usuario = usuarioRepo.findByNomeAndSenha("Guilherme","senha");
-       assertNotNull(usuario);
+        assertNotNull(usuario);
     }
 
-    // @Test
-    // void testeBuscaUsuarioNomeSenhaQuery() {
+    @Test
+    void testeBuscaUsuarioNomeSenhaQuery() {
 
-    //     Usuario usuario = usuarioRepo.buscaUsuarioPorNomeESenha("Guilherme","senha");
-    //    assertNotNull(usuario);
-    // }
+       Usuario usuario = usuarioRepo.buscaUsuarioPorNomeESenha("Guilherme","senha");
+       assertNotNull(usuario);
+    }
 
     @Test
     void testeBuscaUsuarioNomeAutorizacao() {
@@ -117,12 +121,12 @@ class SpringBootAppApplicationTests {
        assertFalse(usuarios.isEmpty());
     }
 
-    // @Test
-    // void testeBuscaUsuarioNomeAutorizacaoQuery() {
+    @Test
+    void testeBuscaUsuarioNomeAutorizacaoQuery() {
 
-    //    List<Usuario> usuarios = usuarioRepo.buscaPorNomeAutorizacao("ROLE_ADMIN");
-    //    assertFalse(usuarios.isEmpty());
-    // }
+       List<Usuario> usuarios = usuarioRepo.buscaPorNomeAutorizacao("ROLE_ADMIN");
+       assertFalse(usuarios.isEmpty());
+    }
 
     @Test
     void testeAutorizacao() {
@@ -133,6 +137,11 @@ class SpringBootAppApplicationTests {
 
     }
 
+    @Test
+    void testeServicoCriaUsuario(){
+        Usuario usuario = segService.criarUsuario("Rodrigo", "senha2", "ROLE_USUARIO");
+        assertNotNull(usuario);
+    }
 
 }
 
